@@ -5,7 +5,8 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import TeamModel from '../database/models/Team.model';
 import { Response } from 'superagent';
-import { getAllTeams } from '../mock/teams.mock';
+import { getAllTeams, getOneTeam } from '../mock/teams.mock';
+import TeamService from '../services/team.service';
 
 chai.use(chaiHttp);
 
@@ -27,6 +28,19 @@ describe('test /teams', () => {
 
             expect(status).to.be.equal(200);
             expect(body).to.be.deep.equal(getAllTeams);
+        })
+        it('Should return one team', async () => {
+            Sinon.stub(TeamModel, 'findByPk').resolves(getOneTeam as TeamModel);
+
+            const { status, body} = await chai.request(app).get('/teams/1')
+
+            expect(status).to.be.equal(200);
+            expect(body).to.be.deep.equal(getOneTeam);
+        })
+        it('should return an error if it does not find team', async () => {
+            Sinon.stub(TeamModel, 'findByPk').resolves();
+
+            expect(TeamService.getById(1)).to.be.deep.equal('There is no team with this id')
         })
     })
 });
