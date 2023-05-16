@@ -7,4 +7,10 @@ export default class MatchController {
     const allMatches = await MatchService.getAllMatches(inProgress);
     res.status(200).json(allMatches);
   }
+
+  public static async finishMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    await MatchService.finishMatch(+id);
+    res.status(200).json({ message: 'Finished' });
+  }
 }
