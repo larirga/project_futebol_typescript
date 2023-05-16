@@ -9,7 +9,7 @@ export default class TeamService {
   public static async getById(id: number): Promise<TeamAttributes> {
     const getId = await TeamModel.findByPk(id);
 
-    if (!getId) throw new NotFoundError('There is no team with this id');
+    if (!getId) throw new NotFoundError('There is no team with such id!');
 
     return getId;
   }

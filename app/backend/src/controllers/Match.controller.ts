@@ -20,4 +20,11 @@ export default class MatchController {
     const updated = await MatchService.updateMatch(+id, homeTeamGoals, awayTeamGoals);
     res.status(200).json(updated);
   }
+
+  public static async createMatch(req: Request, res: Response) {
+    const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
+    const createMatch = await MatchService
+      .createMatch(homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals);
+    res.status(201).json(createMatch);
+  }
 }
