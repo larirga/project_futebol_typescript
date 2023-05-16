@@ -23,4 +23,14 @@ export default class UserService {
     }
     return generateToken(userEmail.id);
   }
+
+  public static async getByRole(id: number) {
+    const user = await UserModel.findOne({ where: { id } });
+
+    if (!user) {
+      throw new ValidateError('Token must be a valid token');
+    }
+
+    return user.role;
+  }
 }

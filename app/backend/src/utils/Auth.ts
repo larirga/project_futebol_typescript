@@ -1,6 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
 // import * as jwt from 'jsonwebtoken';
-///
 
 const secretKey = process.env.JWT_SECRET as string;
 
@@ -31,7 +30,7 @@ const validateToken = (token: string): IToken => {
     const isValid = verify(token, secretKey);
     return isValid as IToken;
   } catch (err) {
-    return { message: 'Invalid Token', id: 0 };
+    return { message: 'Token must be a valid token', id: 0 };
   }
 };
 
