@@ -28,4 +28,14 @@ export default class MatchService {
     const matchFinish = await matchId?.update({ inProgress: false }, { where: { id } });
     return matchFinish;
   }
+
+  public static async updateMatch(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) {
+    const matchId = await MatchModel.findByPk(id);
+    const matchUpdate = await matchId?.update({ homeTeamGoals, awayTeamGoals });
+    return matchUpdate;
+  }
 }
