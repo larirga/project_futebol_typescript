@@ -40,7 +40,19 @@ describe('test /teams', () => {
         it('should return an error if it does not find team', async () => {
             Sinon.stub(TeamModel, 'findByPk').resolves();
 
-            expect(TeamService.getById(1)).to.be.deep.equal('There is no team with this id')
+            expect(await TeamService.getById(1)).to.be.be('There is no team with such id!')
+        })
+        it('should return all teams at service', async () => {
+            Sinon.stub(TeamModel, 'findAll').resolves([]);
+        
+            expect(await TeamService.getAll()).to.be.deep.equal([]);
+        })
+        it('should return one team at service', async () => {
+            Sinon.stub(TeamModel, 'findByPk').resolves(getOneTeam as TeamModel);
+            const resultService = await TeamService.getById(1);
+            expect(resultService).to.be.deep.eq(getOneTeam);
+            expect(resultService).to.be.an('object');
+
         })
     })
 });
