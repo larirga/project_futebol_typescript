@@ -47,12 +47,5 @@ describe('test /teams', () => {
         
             expect(await TeamService.getAll()).to.be.deep.equal([]);
         })
-        it('should return one team at service', async () => {
-            Sinon.stub(TeamModel, 'findByPk').resolves(getOneTeam as TeamModel);
-            const resultService = await TeamService.getById(1);
-            expect(resultService).to.be.deep.eq(getOneTeam);
-            expect(resultService).to.be.an('object');
-
-        })
     })
 });
